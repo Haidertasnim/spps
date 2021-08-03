@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type = "application/javascript">
+
+            function getGithubInfo() 
+            {
+                var xmlhttp = new XMLHttpRequest();
+                var url = "https://api.github.com/users";
+
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var people = JSON.parse(this.responseText);
+                        var output = "";
+
+                        for(var i in people)
+                        {
+                            output += "<div style = 'width: 20vw; text-align: left; background-color: rgb(208, 209, 205);'>";
+                                output += "<table style='width: calc(100%);'>";
+                                output += "<tr>";
+                                output += "<td>";
+                                output +="<img src='"+ people[i].avatar_url +"' height='90px' width='90px'>";
+                                output += "</td>";
+                                output += "<td align='center'>";
+                                output +="ID: "+people[i].id+"<br>";
+                                output +="Login: "+people[i].login+"";
+                                output += "</td>";
+                                output += "</tr>";
+                            output += "</div>";
+                            output += "<br>";
+
+                        }
+
+                        document.getElementById("content").innerHTML = output;
+                    }
+                };
+                xmlhttp.open("GET", url, false);
+                xmlhttp.send();
+
+            }
+            
+        </script>
+      
+        <title>JSON</title>
+    </head>
+    <body>
+        <div id="content" align="center">
+            <script>
+                getGithubInfo();
+            </script> 
+        </div>
+    </body>
+</html>
